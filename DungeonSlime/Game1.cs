@@ -2,12 +2,17 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
+using MonoGameLibrary.Graphics;
 
 namespace DungeonSlime;
 
 public class Game1 : Core
 {
-    private Texture2D _logo;
+    // Texture region that defines the slime sprite in the atlas.
+    private TextureRegion _slime;
+
+    // Texture region that defines the bat sprite in the atlas.
+    private TextureRegion _bat;
 
     public Game1() : base("Dungeon Slime", 1280, 720, false)
     {
@@ -20,7 +25,12 @@ public class Game1 : Core
 
     protected override void LoadContent()
     {
-        _logo = Content.Load<Texture2D>("images/logo");
+        // Create the texture atlas from the XML configuration file
+        TextureAtlas atlas = TextureAtlas.FromFile(Content, "images/atlas-definition.xml");
+
+        // Retrieve regions from the atlas.
+        _slime = atlas.GetRegion("slime");
+        _bat = atlas.GetRegion("bat");
     }
 
     protected override void Update(GameTime gameTime)
@@ -39,7 +49,11 @@ public class Game1 : Core
 
         SpriteBatch.Begin();
 
-        SpriteBatch.Draw(_logo, Vector2.Zero, Color.White);
+        // Draw the slime texture region at a scale of 4.0
+        _slime.Draw(SpriteBatch, Vector2.Zero, Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 0.0f);
+
+        // Draw the bat texture region 10px to the right of the slime at a scale of 4.0
+        _bat.Draw(SpriteBatch, new Vector2(_slime.Width * 4.0f + 10, 0), Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 1.0f);
 
         SpriteBatch.End();
 
