@@ -57,7 +57,7 @@ public class Game1 : Core
         _slime.Draw(SpriteBatch, Vector2.Zero);
 
         // Draw the bat sprite
-        _bat.Draw(SpriteBatch, new Vector2(_slime.Width * 4.0f + 10, 0));
+        _bat.Draw(SpriteBatch, new Vector2(_slime.Width + 10, 0));
 
         SpriteBatch.End();
 
