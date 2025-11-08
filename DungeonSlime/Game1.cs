@@ -50,7 +50,8 @@ public class Game1 : Core
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        SpriteBatch.Begin();
+        // Begin the sprite batch to prepare for rendering.
+        SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         // Draw the slime sprite
         _slime.Draw(SpriteBatch, Vector2.Zero);
